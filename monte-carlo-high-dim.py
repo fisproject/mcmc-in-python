@@ -1,0 +1,46 @@
+#!/usr/bin/env python
+# coding: utf-8
+
+import math
+import numpy as np
+import matplotlib.pyplot as plt
+
+def V(n):
+    return math.pi**(n/2.0) / math.gamma(n/2.0+1.0)
+
+def count_point(n):
+    x = []
+    count = 0
+
+    for i in xrange(n):
+        x.append(np.random.uniform(-1.0, 1.0, N))
+
+    for i in xrange(N):
+        r = 0.0
+        for j in xrange(n):
+            r += x[j][i]**2.0
+        if r < 1.0:
+            count += 1
+
+    return count
+
+tv = []
+mc = []
+N = 100000
+
+for n in xrange(1,25):
+    c = count_point(n)
+    tv.append(V(n))
+    mc.append(2.0**n * float(c) / float(N))
+
+    print n, 'Dim'
+    print 'Theoretical Value:', V(n)
+    print 'Monte Carlo :', 2.0**n * float(c) / float(N)
+
+x = np.arange(1, 25, 1)
+plt.plot(x, tv)
+plt.plot(x, mc)
+plt.xlabel('dim')
+plt.ylabel('V(r=1)')
+plt.grid(True)
+plt.show()
