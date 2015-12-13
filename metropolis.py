@@ -66,5 +66,7 @@ plt.hist(sample[int(N * burn_in):,1], bins=30)
 plt.title('y')
 plt.show()
 
-print 'x :', np.mean(sample[:,0]), np.var(sample[:,0]) # x : 0.02767180711 1.36504061679
-print 'y :', np.mean(sample[:,1]), np.var(sample[:,1]) # y : 0.0309528474353 1.37879772867
+print 'x :', np.mean(sample[int(len(sample) * burn_in):,0]), np.var(sample[int(len(sample) * burn_in):,0])
+# x : -0.00252259614386 1.26378688755
+print 'y :', np.mean(sample[int(len(sample) * burn_in):,1]), np.var(sample[int(len(sample) * burn_in):,1])
+# y : -0.0174372516771 1.24832585103

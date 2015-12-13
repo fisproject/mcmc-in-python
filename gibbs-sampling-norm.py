@@ -56,5 +56,7 @@ plt.xlabel('X1')
 plt.ylabel('X2')
 plt.show()
 
-print 'x1 :', np.mean(sample[:,0]), np.var(sample[:,0]) # x1 : -0.0176636194179 1.32838943108
-print 'x2 :', np.mean(sample[:,1]), np.var(sample[:,1]) # x2 : -0.0190149176882 1.28633687028
+print 'x1 :', np.mean(sample[int(N * burn_in):,0]), np.var(sample[int(N * burn_in):,0])
+# x1 : 0.00741907569473 1.32326519155
+print 'x2 :', np.mean(sample[int(N * burn_in):,1]), np.var(sample[int(N * burn_in):,1])
+# x2 : -0.00980409857562 1.33662629729
