@@ -8,7 +8,7 @@ import matplotlib.pyplot as plt
 def V(n):
     return math.pi**(n/2.0) / math.gamma(n/2.0+1.0)
 
-def count_point(n):
+def count_point(N, n):
     x = []
     count = 0
 
@@ -24,23 +24,27 @@ def count_point(n):
 
     return count
 
-tv = []
-mc = []
-N = 100000
+def main():
+    tv = []
+    mc = []
+    N = 100000
 
-for n in xrange(1,25):
-    c = count_point(n)
-    tv.append(V(n))
-    mc.append(2.0**n * float(c) / float(N))
+    for n in xrange(1,25):
+        c = count_point(N, n)
+        tv.append(V(n))
+        mc.append(2.0**n * float(c) / float(N))
 
-    print n, 'Dim'
-    print 'Theoretical Value:', V(n)
-    print 'Monte Carlo :', 2.0**n * float(c) / float(N)
+        print(n, 'Dim')
+        print('Theoretical Value:', V(n))
+        print('Monte Carlo :', 2.0**n * float(c) / float(N))
 
-x = np.arange(1, 25, 1)
-plt.plot(x, tv)
-plt.plot(x, mc)
-plt.xlabel('dim')
-plt.ylabel('V(r=1)')
-plt.grid(True)
-plt.show()
+    x = np.arange(1, 25, 1)
+    plt.plot(x, tv)
+    plt.plot(x, mc)
+    plt.xlabel('dim')
+    plt.ylabel('V(r=1)')
+    plt.grid(True)
+    plt.show()
+
+if __name__ == '__main__':
+    main()
