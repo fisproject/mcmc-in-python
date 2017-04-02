@@ -33,8 +33,8 @@ def gibbs(N, thin):
     s = []
     x1 = 0.0
     x2 = 0.0
-    for i in range(N):
-        for j in range(thin):
+    for i in xrange(N):
+        for j in xrange(thin):
             x1 = np.random.normal(b * x2, 1) # P(x1|x2)
             x2 = np.random.normal(b * x1, 1) # P(x2|x1)
         s.append((x1,x2))

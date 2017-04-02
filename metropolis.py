@@ -19,7 +19,7 @@ def metropolis(N, mu1, mu2, sigma, b):
     sample.append(current)
     accept_ratio = []
 
-    for i in range(N):
+    for i in xrange(N):
         candidate = Q(current, mu1, mu2, sigma)
 
         T_prev = P(current[0], current[1], b)
