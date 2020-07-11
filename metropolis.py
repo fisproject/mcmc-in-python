@@ -1,23 +1,30 @@
 # coding: utf-8
 
 import copy
+from typing import Tuple
 
 import numpy as np
+import matplotlib
+
+matplotlib.use("TkAgg")  # for macOS
+import matplotlib.pyplot as plt
 import matplotlib.pyplot as plt
 
 
-# P(x) : Target distribution
-def P(x1, x2, b):
-    return np.exp(-0.5 * (x1**2 - 2*b*x1*x2 + x2**2))
+def P(x1: float, x2: float, b: float) -> np.float64:
+    """P(x) : Target distribution"""
+    return np.exp(-0.5 * (x1 ** 2 - 2 * b * x1 * x2 + x2 ** 2))
 
 
-# Q(x) : Proposal distribution
-def Q(c, mu1, mu2, sigma):
+def Q(
+    c: Tuple[float, float], mu1: float, mu2: float, sigma: float
+) -> Tuple[float, float]:
+    """Q(x) : Proposal distribution"""
     return (c[0] + np.random.normal(mu1, sigma), c[1] + np.random.normal(mu2, sigma))
 
 
-def metropolis(N, mu1, mu2, sigma, b):
-    current = (10, 10)
+def metropolis(N: int, mu1: float, mu2: float, sigma: float, b: float) -> np.ndarray:
+    current = (10.0, 10.0)
     sample = []
     sample.append(current)
     accept_ratio = []
@@ -35,7 +42,7 @@ def metropolis(N, mu1, mu2, sigma, b):
             sample.append(current)
             accept_ratio.append(i)
 
-    print('Accept ratio:', float(len(accept_ratio)) / N)
+    print(f"Accept ratio: {float(len(accept_ratio)) / N}")
     return np.array(sample)
 
 
@@ -51,33 +58,31 @@ def main():
     sample = metropolis(N, mu1, mu2, sigma, b)
 
     plt.scatter(
-        sample[int(len(sample) * burn_in):, 0],
-        sample[int(len(sample) * burn_in):, 1],
+        sample[int(len(sample) * burn_in) :, 0],
+        sample[int(len(sample) * burn_in) :, 1],
         alpha=0.3,
         s=5,
-        edgecolor='None'
+        edgecolor="None",
     )
-    plt.title('MCMC (Metropolis)')
+    plt.title("MCMC (Metropolis)")
     plt.show()
 
-    fig = plt.figure(figsize=(15, 6))
-
-    plt.hist(sample[int(N * burn_in):, 0], bins=30)
-    plt.title('x')
-
-    plt.hist(sample[int(N * burn_in):, 1], bins=30)
-    plt.title('y')
+    plt.figure(figsize=(15, 6))
+    plt.hist(sample[int(N * burn_in) :, 0], bins=30)
+    plt.xlabel("x")
+    plt.hist(sample[int(N * burn_in) :, 1], bins=30)
+    plt.ylabel("y")
     plt.show()
 
-    print('x:',
-          np.mean(sample[int(len(sample) * burn_in):, 0]),
-          np.var(sample[int(len(sample) * burn_in):, 0]))
+    print(
+        f"x: {np.mean(sample[int(len(sample) * burn_in):, 0])}, {np.var(sample[int(len(sample) * burn_in):, 0])}"
+    )
     # => x: -0.00252259614386 1.26378688755
-    print('y:',
-          np.mean(sample[int(len(sample) * burn_in):, 1]),
-          np.var(sample[int(len(sample) * burn_in):, 1]))
+    print(
+        f"y: {np.mean(sample[int(len(sample) * burn_in):, 1])}, {np.var(sample[int(len(sample) * burn_in):, 1])}"
+    )
     # => y: -0.0174372516771 1.24832585103
 
 
-if __name__ == '__main__':
+if __name__ == "__main__":
     main()
