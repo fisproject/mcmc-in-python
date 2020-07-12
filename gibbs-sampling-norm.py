@@ -26,9 +26,7 @@ def gibbs(N: int, thin: int, b: float) -> np.ndarray:
 
 
 def main():
-    xs = []
-    ys = []
-    zs = []
+    xs, ys, zs = [], [], []
     b = 0.5
 
     for i in np.arange(-3, 3, 0.1):

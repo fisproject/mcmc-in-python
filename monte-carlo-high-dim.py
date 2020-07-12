@@ -31,8 +31,7 @@ def count_point(N: int, n: int) -> int:
 
 
 def main():
-    tv = []
-    mc = []
+    tv, mc = [], []
     N = 100000
 
     for n in range(1, 25):
